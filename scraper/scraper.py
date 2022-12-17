@@ -133,7 +133,7 @@ class Scraper(object):
 
     def scrape_metadata(self, rjcode: str):
         rjcode = rjcode.upper()
-        if not Dlsite.RJCODE_PATTERN.fullmatch(rjcode):
+        if not Dlsite.RJCODE_PATTERN.fullmatch(rjcode) and not Dlsite.RJCODE_PATTERN_NEW.fullmatch(rjcode):
             raise ValueError
         html = self.__request_work_page(rjcode)
         metadata = self.__parse_metadata(html, rjcode)

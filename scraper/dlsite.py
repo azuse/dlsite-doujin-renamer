@@ -22,6 +22,7 @@ def _load_translations():
 class Dlsite(object):
     TRANSLATIONS: Final = _load_translations()
     RJCODE_PATTERN: Final = re.compile(r'RJ(\d{6})(?!\d+)')
+    RJCODE_PATTERN_NEW: Final = re.compile(r'RJ(\d{8})(?!\d+)')
     RGCODE_PATTERN: Final = re.compile(r'RG(\d{5})(?!\d+)')
     SRICODE_PATTERN: Final = re.compile(r'SRI(\d{10})(?!\d+)')
 
@@ -29,8 +30,11 @@ class Dlsite(object):
     @staticmethod
     def parse_rjcode(string: str):
         match = Dlsite.RJCODE_PATTERN.search(string.upper())
+        match_new = Dlsite.RJCODE_PATTERN_NEW.search(string.upper())
         if match:
             return match.group()
+        elif match_new:
+            return match_new.group()
         else:
             return None
 
